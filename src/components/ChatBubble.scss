@@ -1,0 +1,25 @@
+.ChatBubble {
+    padding-bottom: 13px;
+    
+    &__incoming {
+        > .ChatBubble__bubble {
+            color: $incoming-chat-bubble-text-color;
+            background-color: $incoming-chat-bubble-bg-color;
+            border-radius: $incoming-chat-bubble-border-radius;
+        }
+    }
+    &__outgoing {
+        display: flex;
+        justify-content: end;
+        > .ChatBubble__bubble {
+            color: $outgoing-chat-bubble-text-color;
+            background-color: $outgoing-chat-bubble-bg-color;
+            border-radius: $outgoing-chat-bubble-border-radius;
+        }
+    }
+    &__bubble {
+        max-width: 252px;
+        padding: 10px;
+    }
+
+}

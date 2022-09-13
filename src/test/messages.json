@@ -1,0 +1,20 @@
+{
+    "messages": [
+        {
+            "direction": "incoming",
+            "message": "Hello there, how can I help you today?"
+        },
+        {
+            "direction": "outgoing",
+            "message": "I need to reset my password"
+        },
+        {
+            "direction": "incoming",
+            "message": "Well, we can help you with that. Just hold on a second, let me get tech support, typing a long message. Then I'll get back to you and so on."
+        },
+        {
+            "direction": "outgoing",
+            "message": "Hurry up."
+        }
+    ]
+}

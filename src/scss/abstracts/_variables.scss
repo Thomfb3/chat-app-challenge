@@ -1,0 +1,38 @@
+$main-font-size: 14px;
+$main-font-family: 'Roboto', sans-serif;
+
+$color-white: #ffffff;
+$color-dark-purple: #241056;
+$color-light-purple: #5627d8;
+$color-dark-gray: #242424;
+$color-light-gray: #767676;
+
+
+$chat-window-height: 441px;
+$chat-window-width: 371px;
+$chat-window-box-shadow: 0px 0px 11px 1px #82828225;
+$chat-window-border: 1px solid #949494;
+
+$title-bar-bg-color: $color-dark-purple;
+$title-bar-text-color: $color-white;
+$title-bar-border: 1px solid $color-dark-purple;
+$title-bar-height: 26px;
+
+$chat-bubble-padding: 10px 10px;
+$chat-bubble-font-size: $main-font-size;
+
+$incoming-chat-bubble-bg-color: #f6f6f6;
+$incoming-chat-bubble-text-color: $color-dark-gray;
+$incoming-chat-bubble-border-radius: 5px 5px 5px 0px;
+
+$outgoing-chat-bubble-bg-color: $color-light-purple;
+$outgoing-chat-bubble-text-color: $color-white;
+$outgoing-chat-bubble-border-radius: 5px 5px 0px 5px;
+
+$send-message-form-font-size: $main-font-size;
+$send-message-text-color: $color-dark-gray;
+$send-message-border: solid #949494;
+$send-message-border-width: 1px 0 0 0;
+$send-message-send-icon: $color-light-purple;
+
+
