@@ -19,3 +19,16 @@
 ::placeholder { /* Most modern browsers support this now. */
    color:    $color-light-gray;
 }
+
+
+/* width */
+::-webkit-scrollbar {
+   width: 6px;
+ }
+
+ /* Handle */
+ ::-webkit-scrollbar-thumb {
+   background: #e9e1ff;
+   border-radius: 10px;
+   
+ }

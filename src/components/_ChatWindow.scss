@@ -1,0 +1,15 @@
+.ChatWindow {
+    width: $chat-window-width;
+    height: $chat-window-height;
+    border: $chat-window-border;
+    box-shadow: $chat-window-box-shadow;
+    scale: 1;
+    opacity: 1;
+    transition: all .4s ease-in-out;
+    @include absBottomRight; 
+
+    &__close {
+        scale: 0;
+        opacity: 0;
+    }
+}

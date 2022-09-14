@@ -17,5 +17,14 @@
         padding: 0px;
         margin: 0px;
     }
+
+    &__close {
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+
 }
 

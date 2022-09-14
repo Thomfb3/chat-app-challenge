@@ -1,0 +1,21 @@
+.ChatIconButton {
+    color: #fff;
+    background-color: $color-light-purple;
+    padding: 15px;
+    border-radius: 50px;
+    box-shadow: $chat-window-box-shadow;
+    scale: 1;
+    opacity: 1;
+    transition: all .45s ease-in-out;
+    @include absBottomRight; 
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &__close {
+        scale: 0;
+        opacity: 0;
+    }
+
+}

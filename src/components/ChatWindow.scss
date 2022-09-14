@@ -1,7 +1,0 @@
-.ChatWindow {
-    width: $chat-window-width;
-    height: $chat-window-height;
-    border: $chat-window-border;
-    box-shadow: $chat-window-box-shadow;
-    @include absCenter; 
-}

@@ -5,6 +5,13 @@
     transform: translate(-50%, -50%);
 }
 
+@mixin absBottomRight {
+    position: absolute;
+    top: 90%;
+    left: 90%;
+    transform: translate(-90%, -90%);
+}
+
 @mixin clearfix {
     &::after {
         content: "";

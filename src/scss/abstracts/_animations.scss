@@ -1,0 +1,18 @@
+@keyframes move-dots {
+    0% {
+        background-color: $typing-indicator-inactive-circle;
+        transform: translateY(0px);
+    }
+    16% {
+        background-color: $typing-indicator-active-circle;
+        transform: translateY(-5px);
+    }
+    33% {
+        background-color: $typing-indicator-inactive-circle;
+        transform: translateY(0px);
+    }
+    100% {
+        background-color: $typing-indicator-inactive-circle;
+        transform: translateY(0px);
+    }
+}
