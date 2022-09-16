@@ -5,76 +5,94 @@ import ChatIconButton from "./ChatIconButton";
 import SendMessageForm from "./SendMessageForm";
 import Responses from "../test/responses.json";
 
+
 function ChatWindow() {
-    const [chatResponses, setChatResponses] = useState(Responses.responses);
     const [chatMessages, setChatMessages] = useState([]);
     const [typeIndicatorOn, setTypeIndicatorOn] = useState(false);
-    const [activeUser, setActiveUser] = useState(true);
     const [responseCount, setResponseCount] = useState(0)
     const [chatOpen, setChatOpen] = useState(true)
+    const chatResponses = Responses.responses;
 
+    const addMessageToChatMessages = (message) => {
+        message.date = new Date();
+        setChatMessages(chatMessages => [...chatMessages, message]);
+        scrollDown();
+        handleMessageResponse();      
+    }
 
-    const addFirstChat = () => {
-        if (!chatMessages.length) {
-            setChatMessages([chatResponses[0]]);
-            setResponseCount(1)
+    const addResponseToChatMessages = (responseIdx) => {
+        const message = { ...chatResponses[responseIdx] };
+        message.date = new Date();
+        setChatMessages(chatMessages => [...chatMessages, message]);
+    }
+
+    const handleResponseCountChange = (numToAdd) => {
+        responseCount + numToAdd > chatResponses.length - 1
+        ? setResponseCount(0)
+        : setResponseCount(responseCount + numToAdd);
+    }
+
+    const handleUserIsActiveChange = () => {
+        const delayTypeIndicator = setTimeout(() => {
+            setTypeIndicatorOn(false)
+        }, 1500)
+        return () => {
+            clearTimeout(delayTypeIndicator);
         }
     }
 
-    const userTimer = () => {
-        setTimeout(() => setActiveUser(false), 5000);
-    }
-
-    const handleTypeIndicatorChange = () => {
-        if (!activeUser) {
-            setTypeIndicatorOn(true)
+    const handleMessageResponse = () => {
+        const delayResponse = setTimeout(() => {
+            setTypeIndicatorOn(true);
+            scrollDown();
+            setTimeout(() => {
+                setTypeIndicatorOn(false);
+                addResponseToChatMessages(responseCount);
+                handleResponseCountChange(1);
+                scrollDown();
+            }, 3000)
+        }, 1500)
+        return () => {
+            clearTimeout(delayResponse);
         }
-    }
-
-    const handleUserActiveChange = () => {
-        setActiveUser(true);
-        setTypeIndicatorOn(false)
-    }
-
-    const handleMessageSubmit = () => {
-        const date = new Date();
-        let newResponse = chatResponses[responseCount];
-        newResponse.date = date;
-        setTimeout(() => {
-            setResponseCount(responseCount + 1);
-            setChatMessages([...chatMessages, newResponse])
-            console.log(chatMessages)
-        }, 2000)
-
-    }
-
-    const addMessages = (message, direction, date) => {
-        const messageObj = { message, direction, date };
-        setChatMessages([...chatMessages, messageObj])
-        handleMessageSubmit();
     }
 
     const closeChat = () => {
         setChatOpen(false);
     }
 
-    // const openChat = () => {
-    //     setChatOpen(true);
-    //     console.log(chatOpen)
-    // }
+    const openChat = () => {
+        setChatOpen(true);
+        console.log(chatOpen)
+    }
+
+    const scrollDown = () => {
+        const mList = document.getElementById("MessageList"); 
+        const mListScrollPos = mList.scrollHeight - mList.client
+        mList.scrollTop = mListScrollPos;
+    }
 
     useEffect(() => {
-        addFirstChat();
-        userTimer();
-        handleTypeIndicatorChange();
-
-        console.log(activeUser);
-
-    }, [chatMessages, activeUser, handleUserActiveChange, handleMessageSubmit]);
+        //Initial Chat Bubble and Type Indicator timers
+        let initialTimer = setTimeout(() => {
+            addResponseToChatMessages(0);
+            setTimeout(() => {
+                setTypeIndicatorOn(true)
+                setTimeout(() => {
+                    addResponseToChatMessages(1);
+                    setTypeIndicatorOn(false)
+                }, 3000)
+            }, 5000)
+        }, 2000)
+        handleResponseCountChange(2);
+        
+        return () => {
+            clearTimeout(initialTimer);
+        };
+    }, [])
 
     return (
         <>
-
             {/* <ChatIconButton
                 openChat={openChat}
                 chat={chatOpen}
@@ -89,9 +107,9 @@ function ChatWindow() {
                     typeIndicatorOn={typeIndicatorOn}
                 />
                 <SendMessageForm
-                    addMessages={addMessages}
-                    handleUserActiveChange={handleUserActiveChange}
-                    handleMessageSubmit={handleMessageSubmit}
+                    responseCount={responseCount}
+                    addMessageToChatMessages={addMessageToChatMessages}
+                    handleUserIsActiveChange={handleUserIsActiveChange}
                 />
             </div>
         </>

@@ -1,5 +1,7 @@
 .ChatBubble {
     padding-bottom: 13px;
+    word-wrap: break-word;
+    hyphens: auto;
     
     &__incoming {
         > .ChatBubble__bubble {

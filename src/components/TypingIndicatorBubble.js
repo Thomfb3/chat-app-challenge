@@ -9,7 +9,6 @@ function TypingIndicatorBubble() {
             <div className="TypingIndicatorBubble__circle"></div>
         </div>
     )
-
 }
 
 export default TypingIndicatorBubble;

@@ -4,19 +4,17 @@ function ChatBubble({ direction, message }) {
 
     return (
         <div className={
-        `ChatBubble 
-         ChatBubble__${
-        direction === 'incoming'
-        ? 'incoming'
-        : 'outgoing'}`
+            `ChatBubble 
+             ChatBubble__${direction === 'incoming'
+                ? 'incoming'
+                : 'outgoing'
+            }`
         }>
             <div className="ChatBubble__bubble">
-            {message}
+                {message}
             </div>
-                
         </div>
     )
-
 }
 
 export default ChatBubble;

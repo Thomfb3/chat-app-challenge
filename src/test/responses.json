@@ -15,6 +15,10 @@
         {
             "direction": "incoming",
             "message": "Hi my name is Roberta, can I get your name?"
+        },
+        {
+            "direction": "incoming",
+            "message": "Nice to meet you, Tom!"
         }
     ]
 }

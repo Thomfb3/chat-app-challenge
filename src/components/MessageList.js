@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { v4 as uuidv4 } from 'uuid';
 import ChatBubble from "./ChatBubble";
 import TypingIndicatorBubble from "./TypingIndicatorBubble"
 
 
-function MessageList({ messages, typeIndicatorOn}) {
-
-
+function MessageList({ messages, typeIndicatorOn }) {
     return (
         <div id="MessageList" className="MessageList">
             {messages.map(m => (
@@ -17,7 +15,7 @@ function MessageList({ messages, typeIndicatorOn}) {
                 />
             ))}
 
-           { typeIndicatorOn && <TypingIndicatorBubble /> }
+            {typeIndicatorOn && <TypingIndicatorBubble />}
         </div>
     )
 }
