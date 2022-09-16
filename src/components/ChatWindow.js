@@ -10,14 +10,13 @@ function ChatWindow() {
     const [chatMessages, setChatMessages] = useState([]);
     const [typeIndicatorOn, setTypeIndicatorOn] = useState(false);
     const [responseCount, setResponseCount] = useState(0)
-    const [chatOpen, setChatOpen] = useState(true)
+    const [chatIsOpen, setChatIsOpen] = useState(true)
     const chatResponses = Responses.responses;
 
     const addMessageToChatMessages = (message) => {
         message.date = new Date();
         setChatMessages(chatMessages => [...chatMessages, message]);
-        scrollDown();
-        handleMessageResponse();      
+        handleMessageResponse();
     }
 
     const addResponseToChatMessages = (responseIdx) => {
@@ -28,8 +27,8 @@ function ChatWindow() {
 
     const handleResponseCountChange = (numToAdd) => {
         responseCount + numToAdd > chatResponses.length - 1
-        ? setResponseCount(0)
-        : setResponseCount(responseCount + numToAdd);
+            ? setResponseCount(0)
+            : setResponseCount(responseCount + numToAdd);
     }
 
     const handleUserIsActiveChange = () => {
@@ -44,12 +43,10 @@ function ChatWindow() {
     const handleMessageResponse = () => {
         const delayResponse = setTimeout(() => {
             setTypeIndicatorOn(true);
-            scrollDown();
             setTimeout(() => {
                 setTypeIndicatorOn(false);
                 addResponseToChatMessages(responseCount);
                 handleResponseCountChange(1);
-                scrollDown();
             }, 3000)
         }, 1500)
         return () => {
@@ -58,18 +55,16 @@ function ChatWindow() {
     }
 
     const closeChat = () => {
-        setChatOpen(false);
+        setChatIsOpen(false);
     }
 
     const openChat = () => {
-        setChatOpen(true);
-        console.log(chatOpen)
+        setChatIsOpen(true);
     }
 
     const scrollDown = () => {
-        const mList = document.getElementById("MessageList"); 
-        const mListScrollPos = mList.scrollHeight - mList.client
-        mList.scrollTop = mListScrollPos;
+        const mList = document.getElementById("MessageList");
+        mList.scrollTop = mList.scrollHeight - 373;
     }
 
     useEffect(() => {
@@ -85,20 +80,23 @@ function ChatWindow() {
             }, 5000)
         }, 2000)
         handleResponseCountChange(2);
-        
+
         return () => {
             clearTimeout(initialTimer);
         };
     }, [])
 
+    useEffect(() => {
+        scrollDown();
+    }, [chatMessages, typeIndicatorOn])
+
     return (
         <>
-            {/* <ChatIconButton
+            <ChatIconButton
                 openChat={openChat}
-                chat={chatOpen}
-            /> */}
-
-            <div className={`ChatWindow ${chatOpen ? "" : "ChatWindow__close"}`}>
+                chatIsOpen={chatIsOpen}
+            />
+            <div className={`ChatWindow ${chatIsOpen ? "" : "ChatWindow__close"}`}>
                 <TitleBar
                     closeChat={closeChat}
                 />

@@ -2,11 +2,18 @@
     width: $chat-window-width;
     height: $chat-window-height;
     border: $chat-window-border;
+    border-top: none;
     box-shadow: $chat-window-box-shadow;
+    background-color: #fff;
     scale: 1;
     opacity: 1;
-    transition: all .4s ease-in-out;
-    @include absBottomRight; 
+    transition: all .2s ease-in-out;
+    z-index: 0;
+    position: fixed;
+    bottom: 50px;
+    right: 40px;
+    transform-origin: bottom right;
+
 
     &__close {
         scale: 0;

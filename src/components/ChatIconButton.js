@@ -3,25 +3,16 @@ import CloseIcon from '@mui/icons-material/Close';
 import ChatBubbleIcon from '@mui/icons-material/ChatBubble';
 
 
-function ChatIconButton({ openChat, chatOpen }) { 
-    const [chatIconOn, setChatIconOn] = useState(true)
-
-    const handleClick = () => {
-        setChatIconOn(false)
-    }
+function ChatIconButton({ openChat, chatIsOpen }) { 
 
     return (
-        <div>
+        <div className={`ChatIconButton ${!chatIsOpen ? "" : "ChatIconButton__close"}`} onClick={openChat}>
             <ChatBubbleIcon
-                className={`ChatIconButton ${chatIconOn ? "": "ChatIconButton__close"  }`}
-           
+                className="ChatIconButton__icon"
                 sx={{ width: '34px', height: '34px' }}
             />
         </div>
     )
-
 }
-
-
 
 export default ChatIconButton;

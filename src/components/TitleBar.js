@@ -1,9 +1,8 @@
 import React from "react";
 import CloseIcon from '@mui/icons-material/Close';
 
-
 function TitleBar({ closeChat }) { 
-    
+
     return (
         <div className="TitleBar">
             <p>Chat</p>
