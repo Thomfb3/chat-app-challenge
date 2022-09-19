@@ -4,7 +4,7 @@ import ChatBubble from "./ChatBubble";
 import TypingIndicatorBubble from "./TypingIndicatorBubble"
 
 
-function MessageList({ messages, typeIndicatorOn, showDate }) {
+function MessageList({ messages, typeIndicatorOn, showTypeIndicator, showDate }) {
     return (
         <div id="MessageList" className="MessageList">
             {messages.map(m => (
@@ -16,8 +16,7 @@ function MessageList({ messages, typeIndicatorOn, showDate }) {
                     showDate={showDate}
                 />
             ))}
-
-            {typeIndicatorOn && <TypingIndicatorBubble />}
+            {typeIndicatorOn && showTypeIndicator && <TypingIndicatorBubble />}
         </div>
     )
 }

@@ -4,8 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 function DummyContent() {
     const NUM_OF_BLOCKS = 10;
     const dummyBlocks = Array.from(Array(NUM_OF_BLOCKS).keys())
-
-        console.log(dummyBlocks)
     return (
         <>
             <div className="DummyContent">

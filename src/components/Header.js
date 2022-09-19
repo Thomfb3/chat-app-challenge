@@ -4,10 +4,8 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 function Header({ handleShowDateToggle, handleReset }) {
 
-
     return (
         <>
-
             <div className="Header">
                 <p className="Header__title">Tom Balunis - Chat Application</p>
                 <div className="Header__icon-box" onClick={handleReset} >

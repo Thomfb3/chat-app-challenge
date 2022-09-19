@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import TitleBar from "./TitleBar";
 import MessageList from "./MessageList";
 import ChatIconButton from "./ChatIconButton";
@@ -11,12 +11,12 @@ import Responses from "../test/responses.json";
 
 function ChatWindow() {
     const [chatMessages, setChatMessages] = useState([]);
-    const [typeIndicatorOn, setTypeIndicatorOn] = useState(false);
+    const [typeIndicatorOn, toggleTypeIndicatorOn] = useState(false);
+    const [showTypeIndicator, toggleShowTypeIndicator] = useState(true);
     const [responseCount, setResponseCount] = useState(2);
     const [chatIsOpen, setChatIsOpen] = useState(true);
     const [showDate, setShowDate] = useState(false);
-    const [reset, setReset] = useState(false)
-
+    const [reset, setReset] = useState(false);
     const chatResponses = Responses.responses;
     const timeouts = [];
 
@@ -40,7 +40,8 @@ function ChatWindow() {
 
     const handleUserIsActiveChange = () => {
         const delayTypeIndicator = setTimeout(() => {
-            setTypeIndicatorOn(false)
+            toggleShowTypeIndicator(false)
+            toggleTypeIndicatorOn(false)
         }, 100)
         timeouts.push(delayTypeIndicator)
         return () => {
@@ -50,9 +51,10 @@ function ChatWindow() {
 
     const handleMessageResponse = () => {
         const delayResponse = setTimeout(() => {
-            setTypeIndicatorOn(true);
+            toggleShowTypeIndicator(true)
+            toggleTypeIndicatorOn(true)
             setTimeout(() => {
-                setTypeIndicatorOn(false);
+                toggleTypeIndicatorOn(false)
                 addResponseToChatMessages(responseCount);
                 handleResponseCountChange(1);
             }, 3000)
@@ -70,16 +72,20 @@ function ChatWindow() {
 
     useEffect(() => {
         let firstMessageTimer = setTimeout(() => addResponseToChatMessages(0), 1500);
-        let typeIndicatorTimer = setTimeout(() => setTypeIndicatorOn(true), 5000);
+        let typeIndicatorTimer = setTimeout(() => {
+            toggleTypeIndicatorOn(true);
+        }, 5000)
         let secondMessageTimer = setTimeout(() => {
             addResponseToChatMessages(1);
-            setTypeIndicatorOn(false);
+            toggleTypeIndicatorOn(false);
+            toggleShowTypeIndicator(true);
         }, 7000);
+
         timeouts.push(firstMessageTimer, typeIndicatorTimer, secondMessageTimer);
 
         setResponseCount(2);
         setReset(false);
-        
+
         return () => {
             for (let i = 0; i < timeouts.length; i++) {
                 clearTimeout(timeouts[i])
@@ -108,13 +114,14 @@ function ChatWindow() {
 
     const handleReset = () => {
         setReset(true);
-        setTypeIndicatorOn(false)
+        toggleTypeIndicatorOn(false)
+        toggleShowTypeIndicator(false);
         setChatMessages([]);
         setChatIsOpen(true);
         setShowDate(false);
         setResponseCount(2);
     }
-    
+
     return (
         <>
             <ChatIconButton
@@ -128,6 +135,7 @@ function ChatWindow() {
                 <MessageList
                     messages={chatMessages}
                     typeIndicatorOn={typeIndicatorOn}
+                    showTypeIndicator={showTypeIndicator}
                     showDate={showDate}
                 />
                 <SendMessageForm
@@ -143,7 +151,7 @@ function ChatWindow() {
             />
             <DummyContent />
             <Footer />
-         
+
         </>
     )
 }
