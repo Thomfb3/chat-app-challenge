@@ -1,11 +1,14 @@
-# Getting Started with Create React App
+# Chat Application Coding Challenge
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Objective
+The objective was to create a working demo of a Chat Application that would adhere to the specifications of the Requirements Document. There is no backend to this app. This app does not connect to a database. This app does not rely on any API. This app is just a demo with the purpose of imitating chat functionality. All chat responses come from a JSON file with test data. This JSON is named `responses.json` and can be found in the `test` folder. 
+
 ## Available Scripts
 
-In the project directory, you can run:
-
+In the project directory, you can run these scripts...
+To start the application run:
 ### `npm start`
 
 Runs the app in the development mode.\
