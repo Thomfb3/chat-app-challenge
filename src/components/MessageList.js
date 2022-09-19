@@ -4,7 +4,7 @@ import ChatBubble from "./ChatBubble";
 import TypingIndicatorBubble from "./TypingIndicatorBubble"
 
 
-function MessageList({ messages, typeIndicatorOn }) {
+function MessageList({ messages, typeIndicatorOn, showDate }) {
     return (
         <div id="MessageList" className="MessageList">
             {messages.map(m => (
@@ -12,6 +12,8 @@ function MessageList({ messages, typeIndicatorOn }) {
                     key={uuidv4()}
                     direction={m.direction}
                     message={m.message}
+                    date={m.date}
+                    showDate={showDate}
                 />
             ))}
 

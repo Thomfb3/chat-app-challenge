@@ -1,0 +1,22 @@
+.DummyContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    align-content: center;
+    flex-wrap: wrap;
+}
+
+.DummyBlock {
+    background-color: $color-lightest-gray;
+    height: 200px;
+    width: 40%;
+    margin: 20px;
+    color: $color-lighter-gray;
+    padding: 5px 0px 0px 5px;
+    font-size: 25px;
+
+    @include respond(tab-land) {
+        width: 100%;
+    } 
+}

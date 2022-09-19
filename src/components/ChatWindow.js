@@ -3,15 +3,22 @@ import TitleBar from "./TitleBar";
 import MessageList from "./MessageList";
 import ChatIconButton from "./ChatIconButton";
 import SendMessageForm from "./SendMessageForm";
+import Header from "./Header";
+import Footer from "./Footer";
+import DummyContent from "./DummyContent";
 import Responses from "../test/responses.json";
 
 
 function ChatWindow() {
     const [chatMessages, setChatMessages] = useState([]);
     const [typeIndicatorOn, setTypeIndicatorOn] = useState(false);
-    const [responseCount, setResponseCount] = useState(0)
-    const [chatIsOpen, setChatIsOpen] = useState(true)
+    const [responseCount, setResponseCount] = useState(2);
+    const [chatIsOpen, setChatIsOpen] = useState(true);
+    const [showDate, setShowDate] = useState(false);
+    const [reset, setReset] = useState(false)
+
     const chatResponses = Responses.responses;
+    const timeouts = [];
 
     const addMessageToChatMessages = (message) => {
         message.date = new Date();
@@ -34,7 +41,8 @@ function ChatWindow() {
     const handleUserIsActiveChange = () => {
         const delayTypeIndicator = setTimeout(() => {
             setTypeIndicatorOn(false)
-        }, 1500)
+        }, 100)
+        timeouts.push(delayTypeIndicator)
         return () => {
             clearTimeout(delayTypeIndicator);
         }
@@ -49,17 +57,10 @@ function ChatWindow() {
                 handleResponseCountChange(1);
             }, 3000)
         }, 1500)
+        timeouts.push(delayResponse)
         return () => {
             clearTimeout(delayResponse);
         }
-    }
-
-    const closeChat = () => {
-        setChatIsOpen(false);
-    }
-
-    const openChat = () => {
-        setChatIsOpen(true);
     }
 
     const scrollDown = () => {
@@ -68,28 +69,52 @@ function ChatWindow() {
     }
 
     useEffect(() => {
-        //Initial Chat Bubble and Type Indicator timers
-        let initialTimer = setTimeout(() => {
-            addResponseToChatMessages(0);
-            setTimeout(() => {
-                setTypeIndicatorOn(true)
-                setTimeout(() => {
-                    addResponseToChatMessages(1);
-                    setTypeIndicatorOn(false)
-                }, 3000)
-            }, 5000)
-        }, 2000)
-        handleResponseCountChange(2);
+        let firstMessageTimer = setTimeout(() => addResponseToChatMessages(0), 1500);
+        let typeIndicatorTimer = setTimeout(() => setTypeIndicatorOn(true), 5000);
+        let secondMessageTimer = setTimeout(() => {
+            addResponseToChatMessages(1);
+            setTypeIndicatorOn(false);
+        }, 7000);
+        timeouts.push(firstMessageTimer, typeIndicatorTimer, secondMessageTimer);
 
+        setResponseCount(2);
+        setReset(false);
+        
         return () => {
-            clearTimeout(initialTimer);
+            for (let i = 0; i < timeouts.length; i++) {
+                clearTimeout(timeouts[i])
+            }
         };
-    }, [])
+    }, [reset])
+
 
     useEffect(() => {
         scrollDown();
     }, [chatMessages, typeIndicatorOn])
 
+    //Extras
+    const closeChat = () => {
+        setChatIsOpen(false);
+    }
+
+    const openChat = () => {
+        setChatIsOpen(true);
+    }
+
+    const handleShowDateToggle = () => {
+        const show = showDate ? false : true;
+        setShowDate(show)
+    }
+
+    const handleReset = () => {
+        setReset(true);
+        setTypeIndicatorOn(false)
+        setChatMessages([]);
+        setChatIsOpen(true);
+        setShowDate(false);
+        setResponseCount(2);
+    }
+    
     return (
         <>
             <ChatIconButton
@@ -103,6 +128,7 @@ function ChatWindow() {
                 <MessageList
                     messages={chatMessages}
                     typeIndicatorOn={typeIndicatorOn}
+                    showDate={showDate}
                 />
                 <SendMessageForm
                     responseCount={responseCount}
@@ -110,6 +136,14 @@ function ChatWindow() {
                     handleUserIsActiveChange={handleUserIsActiveChange}
                 />
             </div>
+
+            <Header
+                handleShowDateToggle={handleShowDateToggle}
+                handleReset={handleReset}
+            />
+            <DummyContent />
+            <Footer />
+         
         </>
     )
 }

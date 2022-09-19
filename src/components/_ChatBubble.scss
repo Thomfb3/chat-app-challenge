@@ -13,6 +13,9 @@
     &__outgoing {
         display: flex;
         justify-content: end;
+        align-items: flex-end;
+        flex-direction: column;
+
         > .ChatBubble__bubble {
             color: $outgoing-chat-bubble-text-color;
             background-color: $outgoing-chat-bubble-bg-color;
@@ -23,5 +26,12 @@
         max-width: 253px;
         padding: 10px;
     }
-
+    &__date {
+        color: $color-light-gray;
+        font-size: 10px;
+        position: relative;
+        transition: all .2s ease-in-out;
+        padding: 0px;
+        margin-top: 2px;
+    }
 }

@@ -1,0 +1,51 @@
+.Header {
+    background-color: $title-bar-bg-color;
+    color: #fff;
+    display: flex;
+    padding: 0px 15px;
+    align-items: center;
+    font-size: 15px;
+
+    &__title {
+        flex-grow: 1;
+    }
+
+    &__icon-box {
+        display: flex;
+        align-items: center;
+        padding: 0px 10px;
+        cursor: pointer;
+
+        &>svg {
+            padding-right: 6px;
+        }
+
+        &>p {
+            @include respond(phone) {
+                display: none;
+            }
+        }
+    }
+
+    &__hero {
+        background-color: $color-lightest-gray;
+        height: 500px;
+        clip-path: polygon(0 0, 100% 0%, 100% 75%, 0% 100%);
+        background-image: url("../assets/code-challenge-bkgd-min.jpg");
+        background-size: 100%;
+        background-position: center;
+        background-repeat: repeat-y;
+        transition: all .35s ease-in-out;
+        transition-delay: .3s;
+        cursor: pointer;
+
+        filter: grayscale(100%);
+        opacity: .3;
+
+        &:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            background-size: 105%;
+        }
+    }
+}
